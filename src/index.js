@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -16,7 +17,12 @@ class App extends Component {
       selectedVideo: null
     };
 
-    YTSearch({key: API_KEY, term: 'skateboard'}, (videos) => {
+    this.videoSearch('snowboard');
+
+  }
+
+  videoSearch(term) {
+    YTSearch({key: API_KEY, term: term }, (videos) => {
       this.setState({
         videos: videos,
         selectedVideo: videos[0]
@@ -25,11 +31,15 @@ class App extends Component {
   }
 
   render() {
+    const videoSearch = _.debounce((term) => { this.videoSearch(term) }, 300);
+
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={videoSearch} />
         <VideoDetail video={this.state.selectedVideo} />
-        <VideoList videos={this.state.videos} />
+        <VideoList
+          onVideoSelect={ selectedVideo => this.setState({selectedVideo}) }
+          videos={this.state.videos} />
       </div>
     );
   }
@@ -37,25 +47,3 @@ class App extends Component {
 
 // Take the component's generated HTML and put it in the page (in the DOM)
 ReactDOM.render(<App />, document.querySelector('.container'));
-
-// Functional Based Component. This component should produce some HTML
-// const App = React.createClass ({
-//   constructor: function(props) {
-//     super(props);
-//
-//     this.state = { videos: [] };
-//
-//     YTSearch({key: API_KEY, term: 'skateboard'}, (videos) => {
-//       this.setState({ videos }); // this.setState({ videos: videos }) in ES5
-//     });
-//   }
-//
-//   render: function() {
-//    return (
-//      <div>
-//        <SearchBar />
-//        <VideoList videos={this.state.videos} />
-//      </div>
-//    );
-//   }
-// });
