@@ -25,11 +25,7 @@ class SearchBar extends Component {
     this.setState({term});
     this.props.onSearchTermChange(term);
   }
-
-  //State: plain javascript object that is used to record and react to user events
-  //Each Class based component that we define has its own State Object.
-  //Whenever the Component State changes the component immediatly re-renders and also all of its children
-  //We need to initialise the State object
+  
 }
 
 export default SearchBar;
