@@ -1,4 +1,4 @@
-# ReduxSimpleStarter with Semantic-ui
+# React-Redux-Webpack-SemanticUi-Starter
 
 Checkout this repo, install dependencies, then start the gulp process with the following:
 
