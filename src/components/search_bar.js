@@ -13,10 +13,14 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div className="search-bar">
+      <div className="search-bar ui action left icon input">
+        <i class="search icon"></i>
         <input
           value={this.state.term}
+          type="text"
+          placeholder="Search..."
           onChange={event => this.onInputChange(event.target.value)} />
+        <button class="ui button">Search</button>
       </div>
     );
   }
@@ -25,7 +29,7 @@ class SearchBar extends Component {
     this.setState({term});
     this.props.onSearchTermChange(term);
   }
-  
+
 }
 
 export default SearchBar;
